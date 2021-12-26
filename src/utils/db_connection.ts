@@ -5,13 +5,15 @@ const connect = async () => {
 
     const mongoURI = process.env.MONGO_URI;
 
-    try {
-        await mongoose.connect(mongoURI);
-        logger.info("Database connection established.");
-    } catch (error) {
-        logger.error("The database connection failed because: " + error);
-        process.exit(1);
-    }
+    return mongoose
+        .connect(mongoURI)
+        .then(() => {
+            logger.info("Database connection established.");
+        })
+        .catch((err) => {
+            logger.error("The database connection failed because: " + err);
+            process.exit(1);
+        });
 }
 
 export default connect;
