@@ -1,5 +1,6 @@
 # 📚 InterAct [Backend]
 
+<br>
 The backend API for InterAct, comprised of Node & Express (JS) with TypeScript support; for a front-facing PWA Next.js web application.
 
 ## Installation
