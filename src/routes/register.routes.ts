@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user.model';
-import logger from '../utils/logger';
 import mongoose from 'mongoose';
 
 const expressRouter = Router();
@@ -58,7 +57,11 @@ expressRouter.post('/register', (req: Request, res: Response) => {
             }
         })
         .catch(err => {
-            logger.error(err);
+            return res
+                .status(500)
+                .json({
+                    error: err
+                });
         });
 });
 

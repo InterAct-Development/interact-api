@@ -5,6 +5,7 @@ import logger from './utils/logger';
 import root from './routes/root.routes';
 import userAuth from './middleware/user.middleware';
 import register from './routes/register.routes';
+import login from './routes/login.routes';
 dotenv.config();
 
 const app = express();
@@ -22,4 +23,4 @@ app.listen(port, async () => {
 
 // Routes & Middleware
 app.use('/', root);
-app.use('/users', userAuth, register);
+app.use('/users', userAuth, register, login);
