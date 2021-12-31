@@ -42,7 +42,12 @@ Create a .env file from the example one provided in the project:
 
 <b>- MONGO_URI:</b> Your MongoDB secret key.
 <br>
-<b>- ACCESS_TOKEN_SECRET:</b> In your terminal generate a random access token using this command, copy and paste the given output:
+<br>
+<b>- ACCESS_TOKEN_SECRET:</b> In your terminal generate a random access token by opting into 'node' first and then run the command below it, copy and paste the given output:
+
+```sh
+node
+```
 
 ```sh
 require('crypto').randomBytes(64).toString('hex')
