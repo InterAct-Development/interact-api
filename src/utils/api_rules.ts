@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 // @Helper class for setting ruleset for incoming requests
 const api_ruleset = (req: Request, res: Response, next: NextFunction): Response => {

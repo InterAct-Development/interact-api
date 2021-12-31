@@ -1,9 +1,9 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 import dotenv from 'dotenv';
 import connect from './utils/db_connection';
 import logger from './utils/logger';
 import routes from './routes/app.routes';
-import userAuth from './middleware/user.middleware';
+import validateJWT from './middleware/user.middleware';
 import api_ruleset from './utils/api_rules';
 dotenv.config();
 
@@ -23,4 +23,9 @@ app.listen(port, async () => {
 
 // Routes & Middleware
 app.use('/', routes);
-app.use('/users', userAuth, routes);
+app.use('/users', routes);
+
+// Protected route to test JWT validation middleware
+app.use('/test', validateJWT, (req: Request, res: Response) => {
+  return res.json({ message: "Authorized"});
+});
