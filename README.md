@@ -35,9 +35,13 @@ npm install
 ```
 
 <br>
+
 Create a .env file from the example one provided in the project:
 
+<br>
+
 <b>- MONGO_URI:</b> Your MongoDB secret key.
+<br>
 <b>- ACCESS_TOKEN_SECRET:</b> In your terminal generate a random access token using this command, copy and paste the given output:
 
 ```sh
