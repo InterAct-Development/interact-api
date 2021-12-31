@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction} from 'express';
 import JWT from 'jsonwebtoken';
 
-// @Helper class for verifying user's incoming JWT token.
+// @Middleware class for verifying user's incoming JWT token.
 const validateJWT = (req: Request, res: Response, next: NextFunction): Response => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader?.split(' ')[1];
