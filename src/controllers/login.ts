@@ -1,11 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 import JWT from 'jsonwebtoken';
 
-const expressRouter = Router();
-
-expressRouter.post('/login', (req: Request, res: Response) => {
+const login = (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     User
@@ -61,6 +59,6 @@ expressRouter.post('/login', (req: Request, res: Response) => {
                     error: err
                 });
         });
-});
+}
 
-export default expressRouter;
+export default login;

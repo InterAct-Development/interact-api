@@ -2,17 +2,17 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connect from './utils/db_connection';
 import logger from './utils/logger';
-import root from './routes/root.routes';
+import routes from './routes/app.routes';
 import userAuth from './middleware/user.middleware';
-import register from './routes/register.routes';
-import login from './routes/login.routes';
+import api_ruleset from './utils/api_rules';
 dotenv.config();
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
+app.use(api_ruleset);
 
 app.listen(port, async () => {
   logger.info(`App running on: http://localhost:${port}`);
@@ -22,5 +22,5 @@ app.listen(port, async () => {
 });
 
 // Routes & Middleware
-app.use('/', root);
-app.use('/users', userAuth, register, login);
+app.use('/', routes);
+app.use('/users', userAuth, routes);

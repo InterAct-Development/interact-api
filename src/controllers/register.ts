@@ -1,11 +1,9 @@
-import { Router, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 import mongoose from 'mongoose';
 
-const expressRouter = Router();
-
-expressRouter.post('/register', (req: Request, res: Response) => {
+const register = (req: Request, res: Response) => {
     const _id = new mongoose.Types.ObjectId();
     const { name, email, age, phone, password } = req.body;
 
@@ -63,6 +61,6 @@ expressRouter.post('/register', (req: Request, res: Response) => {
                     error: err
                 });
         });
-});
+}
 
-export default expressRouter;
+export default register;
