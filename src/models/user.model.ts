@@ -5,9 +5,10 @@ interface User {
     _id: number,
     name: string,
     age: number,
-    phone?: number,
+    phone?: string,
     email: string,
     password: string,
+    role: string
 }
 
 // Email field constraints
@@ -24,7 +25,7 @@ const userModel = new mongoose.Schema<User>({
         type: Number,
         required: true
     },
-    phone: Number,
+    phone: String,
     email: {
         type: String,
         required: true,
@@ -35,9 +36,15 @@ const userModel = new mongoose.Schema<User>({
         type: String,
         required: true
     },
+    role: {
+        type: String,
+        default: "student",
+        enum: ["youth_worker", "student"],
+        required: true
+    }
 }, {
     timestamps: true
 });
- 
+
 const UserModel = mongoose.model<User>('user', userModel);
 export default UserModel;

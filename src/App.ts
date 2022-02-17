@@ -4,14 +4,20 @@ import connect from './utils/db_connection';
 import logger from './utils/logger';
 import routes from './routes/app.routes';
 import api_ruleset from './utils/api_rules';
+import cors from 'cors';
 dotenv.config();
 
 const app = express();
 const port = 3000;
+const corsOptions = {
+  origin: 'http://localhost:8080',
+  credentials: true
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(api_ruleset);
+app.use(cors(corsOptions));
 
 app.listen(port, async () => {
   logger.info(`App running on: http://localhost:${port}`);

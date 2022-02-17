@@ -7,10 +7,10 @@ const findUserById = (req: Request, res: Response) => {
     User
         .findById(id)
         .then(user => {
-            if (!user) 
-            return res
+            if (!user)
+                return res
                     .status(404)
-                    .json({ message: 'Could not find the specified user.'})
+                    .json({ message: 'Could not find the specified user.' })
                     .end();
 
             return res.status(200).json({ user });
