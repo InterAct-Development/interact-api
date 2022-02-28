@@ -6,20 +6,20 @@ import JWT from 'jsonwebtoken';
 const login = async (req: Request, res: Response): Promise<void> => {
     const { email, password } = req.body;
 
-    await User.find({ email: email })
+    await User.findOne({ email: email })
         .exec()
         .then((user) => {
-            // Save current user's role as global variable for role validation
-            res.app.set("role", user[0].role);
-
-            if (user.length < 1) {
+            if (!user) {
                 return res.status(401).json({
                     message: 'Incorrect credentials.',
                 });
             }
 
+            // Save current user's role as global variable for role validation
+            res.app.set("role", user.role);
+
             // @DESC: Compare - Request body password field | Password in DB
-            bcrypt.compare(password, user[0].password, (hasError, success) => {
+            bcrypt.compare(password, user.password, (hasError, success) => {
                 if (hasError) {
                     return res.status(401).json({
                         message: 'Incorrect password.',
@@ -29,8 +29,8 @@ const login = async (req: Request, res: Response): Promise<void> => {
                 if (success) {
                     const token = JWT.sign(
                         {
-                            email: user[0],
-                            userId: user[0]._id,
+                            email: user,
+                            userId: user._id,
                         },
                         process.env.ACCESS_TOKEN_SECRET,
                         { expiresIn: '1h' }
@@ -38,7 +38,7 @@ const login = async (req: Request, res: Response): Promise<void> => {
 
                     return res.status(200).json({
                         message: 'Authentication was successful.',
-                        id: user[0]._id,
+                        id: user._id,
                         token: token,
                     });
                 }

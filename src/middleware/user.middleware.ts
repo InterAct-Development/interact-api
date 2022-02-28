@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
+import { Roles } from '../enums/roles';
 import JWT from 'jsonwebtoken';
+import { ValueOf } from '../utils/typescript_helpers';
 
 // @DESC: Function for verifying user's incoming JWT token.
 export const validateUser = (
@@ -26,18 +28,14 @@ export const validateUser = (
 };
 
 // @DESC: Function for verifying user's role.
-export const validateRole = (role: string) => {
-    return async (
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ): Promise<void> => {
-        const userRole: string = res.app.get('role');
+export const validateRole = (role: ValueOf<typeof Roles>) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        const userRole: unknown = res.app.get('role');
 
         if (userRole !== role) {
-            res.json({
+            return res.json({
                 message: 'Access Denied.',
-                error: 'You do not have permission to access this resource.'
+                error: 'You do not have permission to access this resource.',
             });
         }
         next();
